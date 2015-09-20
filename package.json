@@ -1,0 +1,36 @@
+{
+  "name": "health-state-registry",
+  "version": "0.1.0",
+  "description": "Maintain a collection of systems and their health",
+  "main": "src/Registry.js",
+  "directories": {
+    "doc": "docs",
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "mocha --require babel/register tests/",
+    "docs": "esdoc -c esdoc.json"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/j-/health-state-registry"
+  },
+  "keywords": [
+    "health",
+    "system",
+    "state",
+    "monitor",
+    "registry"
+  ],
+  "author": "Jamie Hoeks <j@skeoh.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/j-/health-state-registry/issues"
+  },
+  "homepage": "https://github.com/j-/health-state-registry#readme",
+  "devDependencies": {
+    "babel": "^5.8.23",
+    "esdoc": "^0.2.6",
+    "mocha": "^2.3.2"
+  }
+}

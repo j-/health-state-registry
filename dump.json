@@ -1,0 +1,1726 @@
+[
+  {
+    "kind": "file",
+    "static": true,
+    "variation": null,
+    "name": "src/adapters/Adapter.js",
+    "memberof": null,
+    "longname": "src/adapters/Adapter.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1,
+    "content": "import Registry from '../Registry';\r\nimport NotImplementedError from '../errors/NotImplementedError';\r\n\r\n/**\r\n * The data adapter interface for managing data persistence asynchronously.\r\n *   Abstract class.\r\n */\r\nexport default class Adapter {\r\n\t/**\r\n\t * Create a new system.\r\n\t * @param {Object} system System details\r\n\t * @param {Object} [options] Additional options\r\n\t * @return {Promise<Object, NotImplementedError>} New system details\r\n\t */\r\n\tcreateSystem (system, options = {}) {\r\n\t\treturn Promise.reject(new NotImplementedError('`createSystem` must be implemented by subclass'));\r\n\t}\r\n\r\n\t/**\r\n\t * Get an existing system.\r\n\t * @param {Identifier} id System identifier\r\n\t * @param {Object} [options] Additional options\r\n\t * @return {Promise<Object, NotImplementedError>} Stored system details\r\n\t */\r\n\tgetSystem (id, options = {}) {\r\n\t\treturn Promise.reject(new NotImplementedError('`getSystem` must be implemented by subclass'));\r\n\t}\r\n\r\n\t/**\r\n\t * Update an existing system.\r\n\t * @param {Identifier} id System identifier\r\n\t * @param {Object} system New system details\r\n\t * @param {Object} [options] Additional options\r\n\t * @return {Promise<Object, NotImplementedError>} Stored system details\r\n\t */\r\n\tupdateSystem (id, system, options = {}) {\r\n\t\treturn Promise.reject(new NotImplementedError('`updateSystem` must be implemented by subclass'));\r\n\t}\r\n\r\n\t/**\r\n\t * Delete an existing system.\r\n\t * @param {Identifier} id System identifier\r\n\t * @param {Object} [options] Additional options\r\n\t * @return {Promise<Object, NotImplementedError>} Stored system details\r\n\t */\r\n\tdeleteSystem (id, options = {}) {\r\n\t\treturn Promise.reject(new NotImplementedError('`deleteSystem` must be implemented by subclass'));\r\n\t}\r\n\r\n\t/**\r\n\t * Get the next available identifier.\r\n\t * @return {Promise<Identifier>} New identifier\r\n\t */\r\n\tgetNextId () {\r\n\t\treturn Promise.resolve(Math.random().toString());\r\n\t}\r\n\r\n\t/**\r\n\t * Assign an identifier to a system object.\r\n\t * @param {Identifier} id Identifier to assign\r\n\t * @param {Object} system System object to assign identifier to\r\n\t */\r\n\tassignSystemId (id, system) {\r\n\t\tsystem[Registry.identifier] = id;\r\n\t}\r\n\r\n\t/**\r\n\t * Read the identifier assigned to a system object.\r\n\t * @param {Object} system System object to read identifier from\r\n\t * @return {?Identifier} Identifier, or null if none assigned\r\n\t */\r\n\tgetSystemId (system) {\r\n\t\treturn system[Registry.identifier] || null;\r\n\t}\r\n\r\n\t/**\r\n\t * Whitelist properties of a system object. Returns a new object reference.\r\n\t * @param {Object} system System object to prepare\r\n\t * @return {Object} Prepared system object\r\n\t */\r\n\tprepareSystem ({ name = null, lastPing = null }) {\r\n\t\treturn {\r\n\t\t\tname,\r\n\t\t\tlastPing,\r\n\t\t};\r\n\t}\r\n}\r\n"
+  },
+  {
+    "kind": "class",
+    "static": true,
+    "variation": null,
+    "name": "Adapter",
+    "memberof": "src/adapters/Adapter.js",
+    "longname": "src/adapters/Adapter.js~Adapter",
+    "access": null,
+    "export": true,
+    "importPath": "health-state-registry/src/adapters/Adapter.js",
+    "importStyle": "Adapter",
+    "description": "The data adapter interface for managing data persistence asynchronously.\n  Abstract class.",
+    "lineNumber": 8,
+    "interface": false
+  },
+  {
+    "kind": "method",
+    "static": false,
+    "variation": null,
+    "name": "createSystem",
+    "memberof": "src/adapters/Adapter.js~Adapter",
+    "longname": "src/adapters/Adapter.js~Adapter#createSystem",
+    "access": null,
+    "description": "Create a new system.",
+    "lineNumber": 15,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "Object"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "system",
+        "description": "System details"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "Object"
+        ],
+        "spread": false,
+        "optional": true,
+        "name": "options",
+        "description": "Additional options"
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "Promise<Object, NotImplementedError>"
+      ],
+      "spread": false,
+      "description": "New system details"
+    },
+    "generator": false
+  },
+  {
+    "kind": "method",
+    "static": false,
+    "variation": null,
+    "name": "getSystem",
+    "memberof": "src/adapters/Adapter.js~Adapter",
+    "longname": "src/adapters/Adapter.js~Adapter#getSystem",
+    "access": null,
+    "description": "Get an existing system.",
+    "lineNumber": 25,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "Identifier"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "id",
+        "description": "System identifier"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "Object"
+        ],
+        "spread": false,
+        "optional": true,
+        "name": "options",
+        "description": "Additional options"
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "Promise<Object, NotImplementedError>"
+      ],
+      "spread": false,
+      "description": "Stored system details"
+    },
+    "generator": false
+  },
+  {
+    "kind": "method",
+    "static": false,
+    "variation": null,
+    "name": "updateSystem",
+    "memberof": "src/adapters/Adapter.js~Adapter",
+    "longname": "src/adapters/Adapter.js~Adapter#updateSystem",
+    "access": null,
+    "description": "Update an existing system.",
+    "lineNumber": 36,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "Identifier"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "id",
+        "description": "System identifier"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "Object"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "system",
+        "description": "New system details"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "Object"
+        ],
+        "spread": false,
+        "optional": true,
+        "name": "options",
+        "description": "Additional options"
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "Promise<Object, NotImplementedError>"
+      ],
+      "spread": false,
+      "description": "Stored system details"
+    },
+    "generator": false
+  },
+  {
+    "kind": "method",
+    "static": false,
+    "variation": null,
+    "name": "deleteSystem",
+    "memberof": "src/adapters/Adapter.js~Adapter",
+    "longname": "src/adapters/Adapter.js~Adapter#deleteSystem",
+    "access": null,
+    "description": "Delete an existing system.",
+    "lineNumber": 46,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "Identifier"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "id",
+        "description": "System identifier"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "Object"
+        ],
+        "spread": false,
+        "optional": true,
+        "name": "options",
+        "description": "Additional options"
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "Promise<Object, NotImplementedError>"
+      ],
+      "spread": false,
+      "description": "Stored system details"
+    },
+    "generator": false
+  },
+  {
+    "kind": "method",
+    "static": false,
+    "variation": null,
+    "name": "getNextId",
+    "memberof": "src/adapters/Adapter.js~Adapter",
+    "longname": "src/adapters/Adapter.js~Adapter#getNextId",
+    "access": null,
+    "description": "Get the next available identifier.",
+    "lineNumber": 54,
+    "params": [],
+    "return": {
+      "nullable": null,
+      "types": [
+        "Promise<Identifier>"
+      ],
+      "spread": false,
+      "description": "New identifier"
+    },
+    "generator": false
+  },
+  {
+    "kind": "method",
+    "static": false,
+    "variation": null,
+    "name": "assignSystemId",
+    "memberof": "src/adapters/Adapter.js~Adapter",
+    "longname": "src/adapters/Adapter.js~Adapter#assignSystemId",
+    "access": null,
+    "description": "Assign an identifier to a system object.",
+    "lineNumber": 63,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "Identifier"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "id",
+        "description": "Identifier to assign"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "Object"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "system",
+        "description": "System object to assign identifier to"
+      }
+    ],
+    "generator": false
+  },
+  {
+    "kind": "method",
+    "static": false,
+    "variation": null,
+    "name": "getSystemId",
+    "memberof": "src/adapters/Adapter.js~Adapter",
+    "longname": "src/adapters/Adapter.js~Adapter#getSystemId",
+    "access": null,
+    "description": "Read the identifier assigned to a system object.",
+    "lineNumber": 72,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "Object"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "system",
+        "description": "System object to read identifier from"
+      }
+    ],
+    "return": {
+      "nullable": true,
+      "types": [
+        "Identifier"
+      ],
+      "spread": false,
+      "description": "Identifier, or null if none assigned"
+    },
+    "generator": false
+  },
+  {
+    "kind": "method",
+    "static": false,
+    "variation": null,
+    "name": "prepareSystem",
+    "memberof": "src/adapters/Adapter.js~Adapter",
+    "longname": "src/adapters/Adapter.js~Adapter#prepareSystem",
+    "access": null,
+    "description": "Whitelist properties of a system object. Returns a new object reference.",
+    "lineNumber": 81,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "Object"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "system",
+        "description": "System object to prepare"
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "Object"
+      ],
+      "spread": false,
+      "description": "Prepared system object"
+    },
+    "generator": false
+  },
+  {
+    "kind": "file",
+    "static": true,
+    "variation": null,
+    "name": "src/adapters/VolatileAdapter.js",
+    "memberof": null,
+    "longname": "src/adapters/VolatileAdapter.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1,
+    "content": "import Adapter from './Adapter';\r\nimport NotFoundError from '../errors/NotFoundError';\r\n\r\nconst SYSTEMS = Symbol('systems');\r\n\r\n/**\r\n * Manage systems in volatile memory. Nothing is persisted beyond the lifetime\r\n *   of the process.\r\n */\r\nexport default class VolatileAdapter extends Adapter {\r\n\t/**\r\n\t * Create a new instance of the VolatileAdapter class. Constructs the\r\n\t *   internal system map.\r\n\t * @param {Object} [options] Options hash\r\n\t */\r\n\tconstructor (...args) {\r\n\t\tsuper(...args);\r\n\t\tthis[SYSTEMS] = new Map();\r\n\t}\r\n\r\n\t/**\r\n\t * Create a new system and store it in the system map.\r\n\t * @param {Object} system System details\r\n\t * @param {Object} [options] Additional options\r\n\t * @return {Promise<Object>} New system details\r\n\t */\r\n\tcreateSystem (options) {\r\n\t\tconst system = this.prepareSystem(options);\r\n\t\treturn this.getNextId().then((id) => {\r\n\t\t\tthis.assignSystemId(id, system);\r\n\t\t\tthis[SYSTEMS].set(id, system);\r\n\t\t\treturn system;\r\n\t\t});\r\n\t}\r\n\r\n\t/**\r\n\t * Get an existing system from the system map.\r\n\t * @param {Identifier} id System identifier\r\n\t * @param {Object} [options] Additional options\r\n\t * @return {Promise<Object, NotFoundError>} Stored system details\r\n\t */\r\n\tgetSystem (id) {\r\n\t\tconst system = this[SYSTEMS].get(id);\r\n\t\tif (!system) {\r\n\t\t\treturn Promise.reject(new NotFoundError(`Could not find system with id \"${id}\"`));\r\n\t\t}\r\n\t\treturn Promise.resolve(system);\r\n\t}\r\n\r\n\t/**\r\n\t * Update an existing system in the system map.\r\n\t * @param {Identifier} id System identifier\r\n\t * @param {Object} system New system details\r\n\t * @param {Object} [options] Additional options\r\n\t * @return {Promise<Object>} Stored system details\r\n\t */\r\n\tupdateSystem (id, properties, options) {\r\n\t\treturn this.getSystem(id)\r\n\t\t\t.then((system) => {\r\n\t\t\t\tObject.assign(system, properties);\r\n\t\t\t\treturn system;\r\n\t\t\t});\r\n\t}\r\n}\r\n"
+  },
+  {
+    "kind": "variable",
+    "static": true,
+    "variation": null,
+    "name": "SYSTEMS",
+    "memberof": "src/adapters/VolatileAdapter.js",
+    "longname": "src/adapters/VolatileAdapter.js~SYSTEMS",
+    "access": null,
+    "export": false,
+    "importPath": "health-state-registry/src/adapters/VolatileAdapter.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 4,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "kind": "class",
+    "static": true,
+    "variation": null,
+    "name": "VolatileAdapter",
+    "memberof": "src/adapters/VolatileAdapter.js",
+    "longname": "src/adapters/VolatileAdapter.js~VolatileAdapter",
+    "access": null,
+    "export": true,
+    "importPath": "health-state-registry/src/adapters/VolatileAdapter.js",
+    "importStyle": "VolatileAdapter",
+    "description": "Manage systems in volatile memory. Nothing is persisted beyond the lifetime\n  of the process.",
+    "lineNumber": 10,
+    "interface": false,
+    "extends": [
+      "src/adapters/Adapter~Adapter"
+    ]
+  },
+  {
+    "kind": "constructor",
+    "static": false,
+    "variation": null,
+    "name": "constructor",
+    "memberof": "src/adapters/VolatileAdapter.js~VolatileAdapter",
+    "longname": "src/adapters/VolatileAdapter.js~VolatileAdapter#constructor",
+    "access": null,
+    "description": "Create a new instance of the VolatileAdapter class. Constructs the\n  internal system map.",
+    "lineNumber": 16,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "Object"
+        ],
+        "spread": false,
+        "optional": true,
+        "name": "options",
+        "description": "Options hash"
+      }
+    ],
+    "generator": false
+  },
+  {
+    "kind": "method",
+    "static": false,
+    "variation": null,
+    "name": "createSystem",
+    "memberof": "src/adapters/VolatileAdapter.js~VolatileAdapter",
+    "longname": "src/adapters/VolatileAdapter.js~VolatileAdapter#createSystem",
+    "access": null,
+    "description": "Create a new system and store it in the system map.",
+    "lineNumber": 27,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "Object"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "system",
+        "description": "System details"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "Object"
+        ],
+        "spread": false,
+        "optional": true,
+        "name": "options",
+        "description": "Additional options"
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "Promise<Object>"
+      ],
+      "spread": false,
+      "description": "New system details"
+    },
+    "generator": false
+  },
+  {
+    "kind": "method",
+    "static": false,
+    "variation": null,
+    "name": "getSystem",
+    "memberof": "src/adapters/VolatileAdapter.js~VolatileAdapter",
+    "longname": "src/adapters/VolatileAdapter.js~VolatileAdapter#getSystem",
+    "access": null,
+    "description": "Get an existing system from the system map.",
+    "lineNumber": 42,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "Identifier"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "id",
+        "description": "System identifier"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "Object"
+        ],
+        "spread": false,
+        "optional": true,
+        "name": "options",
+        "description": "Additional options"
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "Promise<Object, NotFoundError>"
+      ],
+      "spread": false,
+      "description": "Stored system details"
+    },
+    "generator": false
+  },
+  {
+    "kind": "method",
+    "static": false,
+    "variation": null,
+    "name": "updateSystem",
+    "memberof": "src/adapters/VolatileAdapter.js~VolatileAdapter",
+    "longname": "src/adapters/VolatileAdapter.js~VolatileAdapter#updateSystem",
+    "access": null,
+    "description": "Update an existing system in the system map.",
+    "lineNumber": 57,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "Identifier"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "id",
+        "description": "System identifier"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "Object"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "system",
+        "description": "New system details"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "Object"
+        ],
+        "spread": false,
+        "optional": true,
+        "name": "options",
+        "description": "Additional options"
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "Promise<Object>"
+      ],
+      "spread": false,
+      "description": "Stored system details"
+    },
+    "generator": false
+  },
+  {
+    "kind": "file",
+    "static": true,
+    "variation": null,
+    "name": "src/errors/CustomError.js",
+    "memberof": null,
+    "longname": "src/errors/CustomError.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 5,
+    "content": "/**\r\n * An error class which can be extended and correctly assigns a name, message\r\n *   and stack to each instance.\r\n */\r\nexport default class CustomError extends Error {\r\n\t/**\r\n\t * Create an error instance.\r\n\t * @param {String} [message] Assigns a message to this instance\r\n\t */\r\n\tconstructor (message) {\r\n\t\tsuper();\r\n\t\t/**\r\n\t\t * A brief explanation of the error that occurred.\r\n\t\t * @type {String}\r\n\t\t */\r\n\t\tthis.message = message;\r\n\t\t/**\r\n\t\t * Stack trace of the error's origin.\r\n\t\t * @type {String}\r\n\t\t */\r\n\t\tthis.stack = (new Error()).stack;\r\n\t}\r\n\r\n\t/**\r\n\t * Get this error's name. Will be the same as the constructor's name.\r\n\t * @return {String} Error name\r\n\t */\r\n\tget name () {\r\n\t\treturn this.constructor.name;\r\n\t}\r\n}\r\n"
+  },
+  {
+    "kind": "class",
+    "static": true,
+    "variation": null,
+    "name": "CustomError",
+    "memberof": "src/errors/CustomError.js",
+    "longname": "src/errors/CustomError.js~CustomError",
+    "access": null,
+    "export": true,
+    "importPath": "health-state-registry/src/errors/CustomError.js",
+    "importStyle": "CustomError",
+    "description": "An error class which can be extended and correctly assigns a name, message\n  and stack to each instance.",
+    "lineNumber": 5,
+    "interface": false,
+    "extends": [
+      "Error"
+    ]
+  },
+  {
+    "kind": "constructor",
+    "static": false,
+    "variation": null,
+    "name": "constructor",
+    "memberof": "src/errors/CustomError.js~CustomError",
+    "longname": "src/errors/CustomError.js~CustomError#constructor",
+    "access": null,
+    "description": "Create an error instance.",
+    "lineNumber": 10,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "String"
+        ],
+        "spread": false,
+        "optional": true,
+        "name": "message",
+        "description": "Assigns a message to this instance"
+      }
+    ],
+    "generator": false
+  },
+  {
+    "kind": "member",
+    "static": false,
+    "variation": null,
+    "name": "message",
+    "memberof": "src/errors/CustomError.js~CustomError",
+    "longname": "src/errors/CustomError.js~CustomError#message",
+    "access": null,
+    "description": "A brief explanation of the error that occurred.",
+    "lineNumber": 16,
+    "type": {
+      "nullable": null,
+      "types": [
+        "String"
+      ],
+      "spread": false,
+      "description": null
+    }
+  },
+  {
+    "kind": "member",
+    "static": false,
+    "variation": null,
+    "name": "stack",
+    "memberof": "src/errors/CustomError.js~CustomError",
+    "longname": "src/errors/CustomError.js~CustomError#stack",
+    "access": null,
+    "description": "Stack trace of the error's origin.",
+    "lineNumber": 21,
+    "type": {
+      "nullable": null,
+      "types": [
+        "String"
+      ],
+      "spread": false,
+      "description": null
+    }
+  },
+  {
+    "kind": "get",
+    "static": false,
+    "variation": null,
+    "name": "name",
+    "memberof": "src/errors/CustomError.js~CustomError",
+    "longname": "src/errors/CustomError.js~CustomError#name",
+    "access": null,
+    "description": "Get this error's name. Will be the same as the constructor's name.",
+    "lineNumber": 28,
+    "return": {
+      "nullable": null,
+      "types": [
+        "String"
+      ],
+      "spread": false,
+      "description": "Error name"
+    },
+    "type": {
+      "types": [
+        "*"
+      ]
+    },
+    "generator": false
+  },
+  {
+    "kind": "file",
+    "static": true,
+    "variation": null,
+    "name": "src/errors/NotFoundError.js",
+    "memberof": null,
+    "longname": "src/errors/NotFoundError.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1,
+    "content": "import CustomError from './CustomError';\r\n\r\nconst DEFAULT_MESSAGE = 'The requested resource could not be found';\r\n\r\n/**\r\n * This error is raised when a lookup fails because a resource is not found.\r\n */\r\nexport default class NotFoundError extends CustomError {\r\n\t/**\r\n\t * Create a NotFoundError instance.\r\n\t * @param {String} [message] Assigns a message to this instance\r\n\t */\r\n\tconstructor (message = DEFAULT_MESSAGE) {\r\n\t\tsuper(message);\r\n\t}\r\n}\r\n"
+  },
+  {
+    "kind": "variable",
+    "static": true,
+    "variation": null,
+    "name": "DEFAULT_MESSAGE",
+    "memberof": "src/errors/NotFoundError.js",
+    "longname": "src/errors/NotFoundError.js~DEFAULT_MESSAGE",
+    "access": null,
+    "export": false,
+    "importPath": "health-state-registry/src/errors/NotFoundError.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 3,
+    "undocument": true,
+    "type": {
+      "types": [
+        "string"
+      ]
+    }
+  },
+  {
+    "kind": "class",
+    "static": true,
+    "variation": null,
+    "name": "NotFoundError",
+    "memberof": "src/errors/NotFoundError.js",
+    "longname": "src/errors/NotFoundError.js~NotFoundError",
+    "access": null,
+    "export": true,
+    "importPath": "health-state-registry/src/errors/NotFoundError.js",
+    "importStyle": "NotFoundError",
+    "description": "This error is raised when a lookup fails because a resource is not found.",
+    "lineNumber": 8,
+    "interface": false,
+    "extends": [
+      "src/errors/CustomError~CustomError"
+    ]
+  },
+  {
+    "kind": "constructor",
+    "static": false,
+    "variation": null,
+    "name": "constructor",
+    "memberof": "src/errors/NotFoundError.js~NotFoundError",
+    "longname": "src/errors/NotFoundError.js~NotFoundError#constructor",
+    "access": null,
+    "description": "Create a NotFoundError instance.",
+    "lineNumber": 13,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "String"
+        ],
+        "spread": false,
+        "optional": true,
+        "name": "message",
+        "description": "Assigns a message to this instance"
+      }
+    ],
+    "generator": false
+  },
+  {
+    "kind": "file",
+    "static": true,
+    "variation": null,
+    "name": "src/errors/NotImplementedError.js",
+    "memberof": null,
+    "longname": "src/errors/NotImplementedError.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1,
+    "content": "import CustomError from './CustomError';\r\n\r\nconst DEFAULT_MESSAGE = 'Must be implemented by subclass';\r\n\r\n/**\r\n * This error is raised when an abstract method is called on a subclass which\r\n *   has not overridden that method.\r\n */\r\nexport default class NotImplementedError extends CustomError {\r\n\t/**\r\n\t * Create a NotFoundError instance.\r\n\t * @param {String} [message] Assigns a message to this instance\r\n\t */\r\n\tconstructor (message = DEFAULT_MESSAGE) {\r\n\t\tsuper(message);\r\n\t}\r\n}\r\n"
+  },
+  {
+    "kind": "variable",
+    "static": true,
+    "variation": null,
+    "name": "DEFAULT_MESSAGE",
+    "memberof": "src/errors/NotImplementedError.js",
+    "longname": "src/errors/NotImplementedError.js~DEFAULT_MESSAGE",
+    "access": null,
+    "export": false,
+    "importPath": "health-state-registry/src/errors/NotImplementedError.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 3,
+    "undocument": true,
+    "type": {
+      "types": [
+        "string"
+      ]
+    }
+  },
+  {
+    "kind": "class",
+    "static": true,
+    "variation": null,
+    "name": "NotImplementedError",
+    "memberof": "src/errors/NotImplementedError.js",
+    "longname": "src/errors/NotImplementedError.js~NotImplementedError",
+    "access": null,
+    "export": true,
+    "importPath": "health-state-registry/src/errors/NotImplementedError.js",
+    "importStyle": "NotImplementedError",
+    "description": "This error is raised when an abstract method is called on a subclass which\n  has not overridden that method.",
+    "lineNumber": 9,
+    "interface": false,
+    "extends": [
+      "src/errors/CustomError~CustomError"
+    ]
+  },
+  {
+    "kind": "constructor",
+    "static": false,
+    "variation": null,
+    "name": "constructor",
+    "memberof": "src/errors/NotImplementedError.js~NotImplementedError",
+    "longname": "src/errors/NotImplementedError.js~NotImplementedError#constructor",
+    "access": null,
+    "description": "Create a NotFoundError instance.",
+    "lineNumber": 14,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "String"
+        ],
+        "spread": false,
+        "optional": true,
+        "name": "message",
+        "description": "Assigns a message to this instance"
+      }
+    ],
+    "generator": false
+  },
+  {
+    "kind": "file",
+    "static": true,
+    "variation": null,
+    "name": "src/Registry.js",
+    "memberof": null,
+    "longname": "src/Registry.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 12,
+    "content": "/**\r\n * Identifiers can be any unique value which adapters will use to identify a\r\n *   system. The identifier is preferably JSON-serializable (i.e. a String or\r\n *   Number) however the individual adapter may accept other data types.\r\n * @typedef {String|Number|*} Identifier\r\n */\r\n\r\n/**\r\n * A registry maintains a list of systems and their details.\r\n * It must be initialised with a data persistence adapter.\r\n */\r\nexport default class Registry {\r\n\t/**\r\n\t * Create a new instance of the Registry class.\r\n\t * @param {Object} options Options hash\r\n\t * @param {Adapter} options.adapter Data adapter\r\n\t */\r\n\tconstructor ({ adapter }) {\r\n\t\t/**\r\n\t\t * Data adapter. Each registry must have an adapter which decides if and\r\n\t\t *   how data is persisted and retrieved.\r\n\t\t * @type {Adapter}\r\n\t\t */\r\n\t\tthis.adapter = adapter;\r\n\t}\r\n\r\n\t/**\r\n\t * Create a new system.\r\n\t * @param {Object} system System details\r\n\t * @param {Object} [options] Additional options\r\n\t * @return {Promise<Object, NotImplementedError>} New system details\r\n\t */\r\n\tcreateSystem (...args) {\r\n\t\treturn this.adapter.createSystem(...args);\r\n\t}\r\n\r\n\t/**\r\n\t * Get an existing system.\r\n\t * @param {Identifier} id System identifier\r\n\t * @param {Object} [options] Additional options\r\n\t * @return {Promise<Object, NotImplementedError>} Stored system details\r\n\t */\r\n\tgetSystem (...args) {\r\n\t\treturn this.adapter.getSystem(...args);\r\n\t}\r\n\r\n\t/**\r\n\t * Update an existing system.\r\n\t * @param {Identifier} id System identifier\r\n\t * @param {Object} system New system details\r\n\t * @param {Object} [options] Additional options\r\n\t * @return {Promise<Object, NotImplementedError>} Stored system details\r\n\t */\r\n\tupdateSystem (...args) {\r\n\t\treturn this.adapter.updateSystem(...args);\r\n\t}\r\n\r\n\t/**\r\n\t * Delete an existing system.\r\n\t * @param {Identifier} id System identifier\r\n\t * @param {Object} [options] Additional options\r\n\t * @return {Promise<Object, NotImplementedError>} Stored system details\r\n\t */\r\n\tdeleteSystem (...args) {\r\n\t\treturn this.adapter.deleteSystem(...args);\r\n\t}\r\n}\r\n\r\n/**\r\n * System identification key. Each system must be uniquely identifiable.\r\n * @type {Symbol}\r\n */\r\nRegistry.identifier = Symbol('identifier');\r\n"
+  },
+  {
+    "kind": "typedef",
+    "static": true,
+    "variation": null,
+    "name": "Identifier",
+    "memberof": "src/Registry.js",
+    "longname": "src/Registry.js~Identifier",
+    "access": null,
+    "description": "Identifiers can be any unique value which adapters will use to identify a\n  system. The identifier is preferably JSON-serializable (i.e. a String or\n  Number) however the individual adapter may accept other data types.",
+    "type": {
+      "types": [
+        "String",
+        "Number",
+        "*"
+      ],
+      "optional": false,
+      "name": "Identifier"
+    }
+  },
+  {
+    "kind": "class",
+    "static": true,
+    "variation": null,
+    "name": "Registry",
+    "memberof": "src/Registry.js",
+    "longname": "src/Registry.js~Registry",
+    "access": null,
+    "export": true,
+    "importPath": "health-state-registry",
+    "importStyle": "Registry",
+    "description": "A registry maintains a list of systems and their details.\nIt must be initialised with a data persistence adapter.",
+    "lineNumber": 12,
+    "interface": false
+  },
+  {
+    "kind": "constructor",
+    "static": false,
+    "variation": null,
+    "name": "constructor",
+    "memberof": "src/Registry.js~Registry",
+    "longname": "src/Registry.js~Registry#constructor",
+    "access": null,
+    "description": "Create a new instance of the Registry class.",
+    "lineNumber": 18,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "Object"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "options",
+        "description": "Options hash"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "Adapter"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "options.adapter",
+        "description": "Data adapter"
+      }
+    ],
+    "generator": false
+  },
+  {
+    "kind": "member",
+    "static": false,
+    "variation": null,
+    "name": "adapter",
+    "memberof": "src/Registry.js~Registry",
+    "longname": "src/Registry.js~Registry#adapter",
+    "access": null,
+    "description": "Data adapter. Each registry must have an adapter which decides if and\n  how data is persisted and retrieved.",
+    "lineNumber": 24,
+    "type": {
+      "nullable": null,
+      "types": [
+        "Adapter"
+      ],
+      "spread": false,
+      "description": null
+    }
+  },
+  {
+    "kind": "method",
+    "static": false,
+    "variation": null,
+    "name": "createSystem",
+    "memberof": "src/Registry.js~Registry",
+    "longname": "src/Registry.js~Registry#createSystem",
+    "access": null,
+    "description": "Create a new system.",
+    "lineNumber": 33,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "Object"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "system",
+        "description": "System details"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "Object"
+        ],
+        "spread": false,
+        "optional": true,
+        "name": "options",
+        "description": "Additional options"
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "Promise<Object, NotImplementedError>"
+      ],
+      "spread": false,
+      "description": "New system details"
+    },
+    "generator": false
+  },
+  {
+    "kind": "method",
+    "static": false,
+    "variation": null,
+    "name": "getSystem",
+    "memberof": "src/Registry.js~Registry",
+    "longname": "src/Registry.js~Registry#getSystem",
+    "access": null,
+    "description": "Get an existing system.",
+    "lineNumber": 43,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "Identifier"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "id",
+        "description": "System identifier"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "Object"
+        ],
+        "spread": false,
+        "optional": true,
+        "name": "options",
+        "description": "Additional options"
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "Promise<Object, NotImplementedError>"
+      ],
+      "spread": false,
+      "description": "Stored system details"
+    },
+    "generator": false
+  },
+  {
+    "kind": "method",
+    "static": false,
+    "variation": null,
+    "name": "updateSystem",
+    "memberof": "src/Registry.js~Registry",
+    "longname": "src/Registry.js~Registry#updateSystem",
+    "access": null,
+    "description": "Update an existing system.",
+    "lineNumber": 54,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "Identifier"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "id",
+        "description": "System identifier"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "Object"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "system",
+        "description": "New system details"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "Object"
+        ],
+        "spread": false,
+        "optional": true,
+        "name": "options",
+        "description": "Additional options"
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "Promise<Object, NotImplementedError>"
+      ],
+      "spread": false,
+      "description": "Stored system details"
+    },
+    "generator": false
+  },
+  {
+    "kind": "method",
+    "static": false,
+    "variation": null,
+    "name": "deleteSystem",
+    "memberof": "src/Registry.js~Registry",
+    "longname": "src/Registry.js~Registry#deleteSystem",
+    "access": null,
+    "description": "Delete an existing system.",
+    "lineNumber": 64,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "Identifier"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "id",
+        "description": "System identifier"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "Object"
+        ],
+        "spread": false,
+        "optional": true,
+        "name": "options",
+        "description": "Additional options"
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "Promise<Object, NotImplementedError>"
+      ],
+      "spread": false,
+      "description": "Stored system details"
+    },
+    "generator": false
+  },
+  {
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "Infinity",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Infinity",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Infinity",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "NaN",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/NaN",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~NaN",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "undefined",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/undefined",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~undefined",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "null",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/null",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~null",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "Object",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Object",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "object",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~object",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "Function",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Function",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "function",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~function",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "Boolean",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Boolean",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "boolean",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~boolean",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "Symbol",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Symbol",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Symbol",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "Error",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Error",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "EvalError",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/EvalError",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~EvalError",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "InternalError",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/InternalError",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~InternalError",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "RangeError",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RangeError",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~RangeError",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "ReferenceError",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/ReferenceError",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~ReferenceError",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "SyntaxError",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/SyntaxError",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~SyntaxError",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "TypeError",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/TypeError",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~TypeError",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "URIError",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/URIError",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~URIError",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "Number",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Number",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "number",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~number",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "Date",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Date",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "String",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~String",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "string",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~string",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "RegExp",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~RegExp",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "Array",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Array",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "Int8Array",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Int8Array",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Int8Array",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "Uint8Array",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint8Array",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Uint8Array",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "Uint8ClampedArray",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint8ClampedArray",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Uint8ClampedArray",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "Int16Array",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Int16Array",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Int16Array",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "Uint16Array",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint16Array",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Uint16Array",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "Int32Array",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Int32Array",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Int32Array",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "Uint32Array",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint32Array",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Uint32Array",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "Float32Array",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Float32Array",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Float32Array",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "Float64Array",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Float64Array",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Float64Array",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "Map",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Map",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "Set",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Set",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Set",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "WeakMap",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/WeakMap",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~WeakMap",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "WeakSet",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/WeakSet",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~WeakSet",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "ArrayBuffer",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/ArrayBuffer",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~ArrayBuffer",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "DataView",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/DataView",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~DataView",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "JSON",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~JSON",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "Promise",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Promise",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "Generator",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Generator",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Generator",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "GeneratorFunction",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/GeneratorFunction",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~GeneratorFunction",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "Reflect",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Reflect",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Reflect",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "Proxy",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Proxy",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "CanvasRenderingContext2D",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D",
+    "memberof": "BuiltinExternal/WebAPIExternal.js",
+    "longname": "BuiltinExternal/WebAPIExternal.js~CanvasRenderingContext2D",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "DocumentFragment",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/API/DocumentFragment",
+    "memberof": "BuiltinExternal/WebAPIExternal.js",
+    "longname": "BuiltinExternal/WebAPIExternal.js~DocumentFragment",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "Element",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/API/Element",
+    "memberof": "BuiltinExternal/WebAPIExternal.js",
+    "longname": "BuiltinExternal/WebAPIExternal.js~Element",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "Event",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/API/Event",
+    "memberof": "BuiltinExternal/WebAPIExternal.js",
+    "longname": "BuiltinExternal/WebAPIExternal.js~Event",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "Node",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/API/Node",
+    "memberof": "BuiltinExternal/WebAPIExternal.js",
+    "longname": "BuiltinExternal/WebAPIExternal.js~Node",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "NodeList",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/API/NodeList",
+    "memberof": "BuiltinExternal/WebAPIExternal.js",
+    "longname": "BuiltinExternal/WebAPIExternal.js~NodeList",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "XMLHttpRequest",
+    "externalLink": "https://developer.mozilla.org/en/docs/Web/API/XMLHttpRequest",
+    "memberof": "BuiltinExternal/WebAPIExternal.js",
+    "longname": "BuiltinExternal/WebAPIExternal.js~XMLHttpRequest",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  }
+]

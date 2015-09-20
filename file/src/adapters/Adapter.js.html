@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <base data-ice="baseUrl" href="../../../">
+  <title data-ice="title">src/adapters/Adapter.js | API Document</title>
+  <link type="text/css" rel="stylesheet" href="css/style.css">
+  <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
+  <script src="script/prettify/prettify.js"></script>
+  
+  
+</head>
+<body class="layout-container">
+
+<header>
+  <a href="./">Home</a>
+  <a href="identifiers.html">Identifier</a>
+  <a href="source.html">Source</a>
+  <a href="test.html" data-ice="testLink">Test</a>
+  <a data-ice="repoURL" href="https://github.com/j-/health-state-registry" class="repo-url-github">Repository</a>
+  <div class="search-box">
+  <span>
+    <img src="./image/search.png">
+    <span class="search-input-edge"></span><input class="search-input"><span class="search-input-edge"></span>
+  </span>
+    <ul class="search-result"></ul>
+  </div>
+</header>
+
+<nav class="navigation" data-ice="nav"><div data-ice="classWrap">
+  <h2>Class</h2>
+  <ul>
+    
+  <li data-ice="classDoc"><span><a href="class/src/adapters/Adapter.js~Adapter.html">Adapter</a></span></li>
+<li data-ice="classDoc"><span><a href="class/src/errors/CustomError.js~CustomError.html">CustomError</a></span></li>
+<li data-ice="classDoc"><span><a href="class/src/errors/NotFoundError.js~NotFoundError.html">NotFoundError</a></span></li>
+<li data-ice="classDoc"><span><a href="class/src/errors/NotImplementedError.js~NotImplementedError.html">NotImplementedError</a></span></li>
+<li data-ice="classDoc"><span><a href="class/src/Registry.js~Registry.html">Registry</a></span></li>
+<li data-ice="classDoc"><span><a href="class/src/adapters/VolatileAdapter.js~VolatileAdapter.html">VolatileAdapter</a></span></li>
+</ul>
+</div>
+
+
+
+
+
+
+
+<div data-ice="typedefWrap">
+  <h2><a href="typedef/">Typedef</a></h2>
+  <ul>
+    
+  <li data-ice="typedefDoc"><span><a href="typedef/index.html#static-typedef-Identifier">Identifier</a></span></li>
+</ul>
+</div>
+
+
+</nav>
+
+<div class="content" data-ice="content"><h1 data-ice="title">src/adapters/Adapter.js</h1>
+<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">import Registry from &apos;../Registry&apos;;
+import NotImplementedError from &apos;../errors/NotImplementedError&apos;;
+
+/**
+ * The data adapter interface for managing data persistence asynchronously.
+ *   Abstract class.
+ */
+export default class Adapter {
+	/**
+	 * Create a new system.
+	 * @param {Object} system System details
+	 * @param {Object} [options] Additional options
+	 * @return {Promise&lt;Object, NotImplementedError&gt;} New system details
+	 */
+	createSystem (system, options = {}) {
+		return Promise.reject(new NotImplementedError(&apos;`createSystem` must be implemented by subclass&apos;));
+	}
+
+	/**
+	 * Get an existing system.
+	 * @param {Identifier} id System identifier
+	 * @param {Object} [options] Additional options
+	 * @return {Promise&lt;Object, NotImplementedError&gt;} Stored system details
+	 */
+	getSystem (id, options = {}) {
+		return Promise.reject(new NotImplementedError(&apos;`getSystem` must be implemented by subclass&apos;));
+	}
+
+	/**
+	 * Update an existing system.
+	 * @param {Identifier} id System identifier
+	 * @param {Object} system New system details
+	 * @param {Object} [options] Additional options
+	 * @return {Promise&lt;Object, NotImplementedError&gt;} Stored system details
+	 */
+	updateSystem (id, system, options = {}) {
+		return Promise.reject(new NotImplementedError(&apos;`updateSystem` must be implemented by subclass&apos;));
+	}
+
+	/**
+	 * Delete an existing system.
+	 * @param {Identifier} id System identifier
+	 * @param {Object} [options] Additional options
+	 * @return {Promise&lt;Object, NotImplementedError&gt;} Stored system details
+	 */
+	deleteSystem (id, options = {}) {
+		return Promise.reject(new NotImplementedError(&apos;`deleteSystem` must be implemented by subclass&apos;));
+	}
+
+	/**
+	 * Get the next available identifier.
+	 * @return {Promise&lt;Identifier&gt;} New identifier
+	 */
+	getNextId () {
+		return Promise.resolve(Math.random().toString());
+	}
+
+	/**
+	 * Assign an identifier to a system object.
+	 * @param {Identifier} id Identifier to assign
+	 * @param {Object} system System object to assign identifier to
+	 */
+	assignSystemId (id, system) {
+		system[Registry.identifier] = id;
+	}
+
+	/**
+	 * Read the identifier assigned to a system object.
+	 * @param {Object} system System object to read identifier from
+	 * @return {?Identifier} Identifier, or null if none assigned
+	 */
+	getSystemId (system) {
+		return system[Registry.identifier] || null;
+	}
+
+	/**
+	 * Whitelist properties of a system object. Returns a new object reference.
+	 * @param {Object} system System object to prepare
+	 * @return {Object} Prepared system object
+	 */
+	prepareSystem ({ name = null, lastPing = null }) {
+		return {
+			name,
+			lastPing,
+		};
+	}
+}
+</code></pre>
+
+</div>
+
+<footer class="footer">
+  Generated by <a href="https://esdoc.org">ESDoc<span data-ice="esdocVersion">(0.2.6)</span></a>
+</footer>
+
+<script src="script/search_index.js"></script>
+<script src="script/search.js"></script>
+<script src="script/pretty-print.js"></script>
+<script src="script/inherited-summary.js"></script>
+<script src="script/test-summary.js"></script>
+<script src="script/inner-link.js"></script>
+<script src="script/patch-for-local.js"></script>
+</body>
+</html>

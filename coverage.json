@@ -1,0 +1,37 @@
+{
+  "coverage": "100%",
+  "expectCount": 30,
+  "actualCount": 30,
+  "files": {
+    "src/adapters/Adapter.js": {
+      "expectCount": 9,
+      "actualCount": 9,
+      "undocumentLines": []
+    },
+    "src/errors/CustomError.js": {
+      "expectCount": 5,
+      "actualCount": 5,
+      "undocumentLines": []
+    },
+    "src/errors/NotFoundError.js": {
+      "expectCount": 2,
+      "actualCount": 2,
+      "undocumentLines": []
+    },
+    "src/errors/NotImplementedError.js": {
+      "expectCount": 2,
+      "actualCount": 2,
+      "undocumentLines": []
+    },
+    "src/Registry.js": {
+      "expectCount": 7,
+      "actualCount": 7,
+      "undocumentLines": []
+    },
+    "src/adapters/VolatileAdapter.js": {
+      "expectCount": 5,
+      "actualCount": 5,
+      "undocumentLines": []
+    }
+  }
+}
