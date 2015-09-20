@@ -3,7 +3,9 @@
 
 [![master branch build status][build-icon]][build-link]
 
-Maintain a collection of systems and their health. Data persistence
+Maintain a collection of systems and their health. Data persistence is available
+via configurable adapters. This module can, in theory, be run on both the server
+and client simultaneously.
 
 ## Usage
 
