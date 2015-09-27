@@ -12,7 +12,8 @@
     "docs": "esdoc -c esdoc.json",
     "compile": "babel src/ -o dist/health-state-registry.src.js",
     "minify": "uglifyjs dist/health-state-registry.src.js -o dist/health-state-registry.js",
-    "build": "npm run compile && npm run minify"
+    "build": "npm run compile && npm run minify",
+    "preversion": "npm run build"
   },
   "repository": {
     "type": "git",
