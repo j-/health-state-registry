@@ -9,7 +9,10 @@
   },
   "scripts": {
     "test": "mocha --require babel/register tests/",
-    "docs": "esdoc -c esdoc.json"
+    "docs": "esdoc -c esdoc.json",
+    "compile": "babel src/ -o dist/health-state-registry.src.js",
+    "minify": "uglifyjs dist/health-state-registry.src.js -o dist/health-state-registry.js",
+    "build": "npm run compile && npm run minify"
   },
   "repository": {
     "type": "git",
@@ -31,6 +34,7 @@
   "devDependencies": {
     "babel": "^5.8.23",
     "esdoc": "^0.2.6",
-    "mocha": "^2.3.2"
+    "mocha": "^2.3.2",
+    "uglify-js": "^2.4.24"
   }
 }
