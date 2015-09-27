@@ -2,7 +2,7 @@
   "name": "health-state-registry",
   "version": "1.0.0",
   "description": "Maintain a collection of systems and their health",
-  "main": "src/Registry.js",
+  "main": "dist/health-state-registry.js",
   "directories": {
     "doc": "docs",
     "test": "tests"
