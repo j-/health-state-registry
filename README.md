@@ -44,7 +44,7 @@ $ npm install && npm run docs
 Tests are run with [Mocha][mocha] and [Babel][babel]:
 
 ```sh
-$ npm install && npm run test
+$ npm install && npm test
 ```
 
 ## License
