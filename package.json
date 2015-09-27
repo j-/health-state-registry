@@ -1,6 +1,6 @@
 {
   "name": "health-state-registry",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Maintain a collection of systems and their health",
   "main": "dist/health-state-registry.js",
   "directories": {
