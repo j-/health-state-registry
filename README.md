@@ -47,6 +47,15 @@ Tests are run with [Mocha][mocha] and [Babel][babel]:
 $ npm install && npm test
 ```
 
+## Building
+
+Builds are run with [Babel][babel] (to transpile) and [UglifyJS][uglify] (to
+minify):
+
+```sh
+$ npm install && npm run build
+```
+
 ## License
 
 [MIT license](LICENSE).
@@ -57,3 +66,4 @@ $ npm install && npm test
 [esdoc]: https://esdoc.org/
 [mocha]: https://mochajs.org/
 [babel]: https://babeljs.io/
+[uglify]: http://lisperator.net/uglifyjs/
